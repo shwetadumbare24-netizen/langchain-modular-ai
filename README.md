@@ -1,13 +1,11 @@
-LangChain System Design: From Prompts to Intelligent AI Pipelines
+🚀 LangChain System Design: From Prompts to Intelligent AI Pipelines
 
 A deep technical exploration of building real-world LLM applications using LangChain, covering modular architecture, chaining, agents, memory, and RAG systems.
 
-Overview
-
+📌 Overview
 This repository demonstrates how to move beyond simple LLM usage and design scalable, modular AI systems using LangChain.
 
 Instead of treating LLMs as standalone APIs, this project focuses on:
-
 Structured workflows
 Component-based architecture
 Real-world AI use cases
