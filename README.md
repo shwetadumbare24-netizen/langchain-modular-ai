@@ -11,11 +11,13 @@ Instead of treating LLMs as standalone APIs, this project focuses on:
 Structured workflows
 Component-based architecture
 Real-world AI use cases
+
 🎯 Objectives
 Understand LangChain architecture in depth
 Build reusable and modular LLM pipelines
 Implement agents, tools, and memory
 Explore real-world applications of GenAI
+
 🧠 Key Concepts Covered
 LLMs & Chat Models
 Prompt Engineering
@@ -26,12 +28,14 @@ Agents & Tools
 Document Loaders
 Vector Stores (FAISS)
 Retrieval-Augmented Generation (RAG)
+
 ⚙️ Tech Stack
 Python 🐍
 LangChain 🧩
 OpenAI API 🤖
 FAISS (Vector DB)
 Jupyter Notebook / VS Code
+
 📂 Project Structure
 langchain-project/
 │── main.py
@@ -45,6 +49,7 @@ langchain-project/
 │   ├── memory.py
 │   ├── agent_tool.py
 │   ├── rag_pipeline.py
+
 🔄 Architecture Flow
 User Input → Prompt Template → LLM → Chain → Agent → Tools → Output
                     ↓
@@ -68,6 +73,7 @@ Context-aware conversations
 Decision-making AI systems
 ✔ RAG Pipeline
 Retrieval-based AI using vector search
+
 🌍 Real-World Applications
 1. Smart Chatbot
 Context-aware responses using memory
@@ -75,19 +81,23 @@ Context-aware responses using memory
 Document-based Q&A using RAG
 3. Automated Task Agent
 Uses tools to perform calculations and actions
+
 ⚖️ Advantages
 Modular and scalable design
 Rapid prototyping
 Easy integration with APIs
 Supports complex workflows
+
 ⚠️ Limitations
 Higher latency in multi-step chains
 Debugging complexity
 API cost considerations
+
 🚫 When Not to Use
 Simple one-step tasks
 Low-latency applications
 Small scripts without workflows
+
 🔮 Future Scope
 LangGraph for advanced workflows
 Multi-agent systems
