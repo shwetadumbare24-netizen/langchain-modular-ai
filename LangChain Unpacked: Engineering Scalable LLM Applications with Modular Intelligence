@@ -1,0 +1,248 @@
+1. Introduction to LangChain
+Large Language Models (LLMs) like GPT have revolutionized AI development. They can generate text, answer questions, and assist in coding — but when used alone, they quickly hit limitations.
+
+A basic interaction like
+
+response = llm.invoke("What is Artificial Intelligence?")
+produces output, but lacks depth in functionality.
+
+Limitations of Raw LLM Usage
+No persistent memory
+No access to real-world or external data
+No execution of tasks or actions
+No structured workflow or pipeline
+This makes standalone LLMs insufficient for building real-world AI systems.
+
+What is LangChain?
+LangChain is an open-source framework that enables developers to design modular, composable, and production-ready LLM applications.
+
+Write on Medium
+It introduces structured components like:
+
+Prompt Templates
+Chains
+Memory
+Agents
+Tools
+Why LangChain is Important
+LangChain addresses three major engineering challenges:
+
+1. Orchestration
+Managing multiple steps such as prompts, API calls, and tool usage in a controlled pipeline.
+
+2. Chaining
+Passing outputs from one component to another seamlessly.
+
+3. Tool Integration
+Extending LLM capabilities by connecting them to:
+
+APIs
+Databases
+Search engines
+Custom logic
+In essence: LangChain transforms LLMs into intelligent, decision-making systems
+
+2. Core Components of LangChain
+2.1 LLMs & Chat Models
+Concept
+LLMs generate responses, while chat models handle structured conversations.
+
+Purpose
+To provide a unified interface across multiple model providers.
+
+Example
+from langchain_openai import ChatOpenAI
+from langchain_core.messages import HumanMessage, SystemMessage
+
+llm = ChatOpenAI(model="gpt-4o-mini", temperature=0.7)
+
+messages = [
+    SystemMessage(content="You are a helpful assistant."),
+    HumanMessage(content="Explain Python in 2 lines.")
+]
+
+response = llm.invoke(messages)
+print(response.content)
+Insight
+LangChain internally standardizes message formatting, making model switching effortless.
+
+2.2 Prompt Templates
+Concept
+Dynamic prompts with placeholders.
+
+Purpose
+To improve reusability and maintainability.
+
+Example
+from langchain_core.prompts import ChatPromptTemplate
+
+prompt = ChatPromptTemplate.from_messages([
+    ("system", "You are an expert in {role}."),
+    ("human", "Explain {topic}")
+])
+
+messages = prompt.invoke({
+    "role": "AI engineer",
+    "topic": "overfitting"
+})
+Insight
+Prompt templates allow consistent experimentation without rewriting prompts.
+
+2.3 Chains (LCEL)
+Concept
+Sequential pipelines combining multiple operations.
+
+Purpose
+To automate workflows and reduce boilerplate code.
+
+Example
+from langchain_core.output_parsers import StrOutputParser
+
+chain = prompt | llm | StrOutputParser()
+
+result = chain.invoke({
+    "role": "teacher",
+    "topic": "machine learning"
+})
+
+print(result)
+Insight
+The | operator creates a data flow pipeline, where each step feeds the next.
+
+2.4 Memory
+Concept
+Stores previous interactions.
+
+Purpose
+To make conversations context-aware.
+
+Example
+from langchain.memory import ConversationBufferWindowMemory
+from langchain.chains import ConversationChain
+
+memory = ConversationBufferWindowMemory(k=2)
+
+conversation = ConversationChain(
+    llm=llm,
+    memory=memory
+)
+
+conversation.predict(input="My name is Rahul")
+print(conversation.predict(input="What is my name?"))
+Insight
+Memory injects history into prompts, enabling continuity.
+
+2.5 Agents
+Concept
+Decision-making entities that dynamically choose actions.
+
+Purpose
+To handle complex, multi-step reasoning tasks.
+
+2.6 Tools
+Concept
+External functions that agents can use.
+
+Purpose
+To extend LLM capabilities beyond text generation.
+
+Example
+from langchain_core.tools import tool
+
+@tool
+def calculator(expr: str) -> str:
+    return str(eval(expr))
+
+print(calculator.invoke("20 + 5"))
+2.7 Document Loaders
+Concept
+Import external data like PDFs and web pages.
+
+Purpose
+To enable document-based AI applications.
+
+2.8 Vector Stores
+Concept
+Store embeddings for semantic search.
+
+Purpose
+To enable Retrieval-Augmented Generation (RAG).
+
+Example
+from langchain_openai import OpenAIEmbeddings
+from langchain_community.vectorstores import FAISS
+
+vectorstore = FAISS.from_documents(docs, OpenAIEmbeddings())
+
+results = vectorstore.similarity_search("Explain AI", k=2)
+3. Architecture Overview
+Pipeline Flow
+User Input → Prompt → LLM → Chain → Agent → Tools → Output
+Supporting Systems:
+Memory → context handling
+Vector Store → knowledge retrieval
+Key Insight
+LangChain separates concerns into independent modules, making systems scalable and maintainable.
+
+4. Hands-on Implementation
+Basic LLM Call
+llm.invoke("Explain AI")
+Prompt + Chain
+chain = prompt | llm | StrOutputParser()
+Memory Usage
+conversation.predict(input="I love Python")
+Agent Execution
+executor.invoke({"input": "Calculate 100/5"})
+Mini RAG Pipeline
+retriever = vectorstore.as_retriever()
+
+rag_chain = (
+    {"context": retriever, "question": lambda x: x}
+    | prompt
+    | llm
+    | StrOutputParser()
+)
+5. Real-World Applications
+1. Smart Customer Support System
+Uses RAG + Memory
+Handles dynamic queries
+Reduces manual workload
+2. AI-Powered Code Reviewer
+Analyzes pull requests
+Runs multiple evaluation chains
+Generates structured feedback
+3. Research Assistant
+Processes PDFs
+Uses vector search
+Provides contextual answers
+6. Advantages & Limitations
+Advantages
+Modular architecture
+Rapid development
+Strong ecosystem
+Flexible integrations
+Limitations
+Higher latency in agents
+Debugging complexity
+API cost overhead
+Frequent updates
+When NOT to Use
+Simple one-step tasks
+Real-time low-latency systems
+Small-scale scripts
+7. Conclusion
+LangChain represents a shift from prompt-based interaction to system-level AI design.
+
+Key Learnings
+LLMs need orchestration
+Modular design improves scalability
+RAG enables knowledge-based systems
+Agents introduce autonomy
+Future Scope
+LangGraph for workflow orchestration
+Multi-agent collaboration
+Autonomous AI systems
+Final Thought
+The real power of AI lies not in calling models — but in designing systems around them.
+
+LangChain is the bridge that makes this possible.
